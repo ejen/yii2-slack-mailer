@@ -10,12 +10,26 @@ use yii\mail\BaseMessage;
  */
 class SlackMessage extends BaseMessage
 {
+    private $_charset = null;
+
+    private $_from = null;
+
+    private $_to = null;
+
+    private $_replyTo = null;
+
+    private $_cc = null;
+
+    private $_bcc = null;
+
+    private $_subject = null;
+
     /**
      * @inheritdoc
      */
     public function getCharset()
     {
-        return $this->charset;
+        return $this->_charset;
     }
 
     /**
@@ -23,7 +37,7 @@ class SlackMessage extends BaseMessage
      */
     public function setCharset($charset)
     {
-        $this->charset = $charset;
+        $this->_charset = $charset;
         return $this;
     }
 
@@ -32,7 +46,7 @@ class SlackMessage extends BaseMessage
      */
     public function getFrom()
     {
-        return $this->from;
+        return $this->_from;
     }
 
     /**
@@ -40,7 +54,7 @@ class SlackMessage extends BaseMessage
      */
     public function setFrom($from)
     {
-        $this->from = $from;
+        $this->_from = $from;
         return $this;
     }
 
@@ -49,7 +63,7 @@ class SlackMessage extends BaseMessage
      */
     public function getTo()
     {
-        return $this->to;
+        return $this->_to;
     }
 
     /**
@@ -57,7 +71,7 @@ class SlackMessage extends BaseMessage
      */
     public function setTo($to)
     {
-        $this->to = $to;
+        $this->_to = $to;
         return $this;
     }
 
@@ -66,7 +80,7 @@ class SlackMessage extends BaseMessage
      */
     public function getReplyTo()
     {
-        return $this->replyTo;
+        return $this->_replyTo;
     }
 
     /**
@@ -74,7 +88,7 @@ class SlackMessage extends BaseMessage
      */
     public function setReplyTo($replyTo)
     {
-        $this->replyTo = $replyTo;
+        $this->_replyTo = $replyTo;
         return $this;
     }
 
@@ -83,7 +97,7 @@ class SlackMessage extends BaseMessage
      */
     public function getCc()
     {
-        return $this->cc;
+        return $this->_cc;
     }
 
     /**
@@ -91,7 +105,7 @@ class SlackMessage extends BaseMessage
      */
     public function setCc($cc)
     {
-        $this->cc = $cc;
+        $this->_cc = $cc;
         return $this;
     }
 
@@ -100,7 +114,7 @@ class SlackMessage extends BaseMessage
      */
     public function getBcc()
     {
-        return $this->bcc;
+        return $this->_bcc;
     }
 
     /**
@@ -108,7 +122,7 @@ class SlackMessage extends BaseMessage
      */
     public function setBcc($bcc)
     {
-        $this->bcc = $bcc;
+        $this->_bcc = $bcc;
         return $this;
     }
 
@@ -117,7 +131,7 @@ class SlackMessage extends BaseMessage
      */
     public function getSubject()
     {
-        return $this->subject;
+        return $this->_subject;
     }
 
     /**
@@ -125,7 +139,7 @@ class SlackMessage extends BaseMessage
      */
     public function setSubject($subject)
     {
-        $this->subject = $subject;
+        $this->_subject = $subject;
         return $this;
     }
 
@@ -137,6 +151,7 @@ class SlackMessage extends BaseMessage
         $this->textBody = $text;
 
         return $this;
+
     }
 
     /**

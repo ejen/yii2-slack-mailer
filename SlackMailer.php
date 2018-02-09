@@ -26,7 +26,7 @@ class SlackMailer extends BaseMailer
 
     public $webhook;
 
-    public $transport;
+    public $transport = null;
 
     public $messageClass = SlackMessage::class;
 
