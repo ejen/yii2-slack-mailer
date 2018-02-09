@@ -24,6 +24,8 @@ class SlackMessage extends BaseMessage
 
     private $_subject = null;
 
+    public $sendAsText = false;
+
     /**
      * @inheritdoc
      */
@@ -196,6 +198,10 @@ class SlackMessage extends BaseMessage
      */
     public function toString()
     {
-        return;
+        if ($this->sendAsText) {
+            return $this->textBody;
+        }
+
+        return $this->htmlBody;
     }
 }
