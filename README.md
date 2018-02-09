@@ -15,14 +15,7 @@ conmposer require "ejen/yii2-slack-mailer"
     'components' => [
         'mailer' => [
             'class' => ejen\slack\mailer\SlackMailer::class,
-            'slackSettings' => [
-                'httpclient' => [
-                    'class' => \yii\httpclient\Client::class,
-                ],
-                'class' => \understeam\slack\Client::class,
-                'url' => '***',
-                'username' => 'yii2-slack-mailer',
-            ],
+            'webhook' => 'slack webhook url here'
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.

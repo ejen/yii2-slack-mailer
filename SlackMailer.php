@@ -16,7 +16,15 @@ class SlackMailer extends BaseMailer
     /**
      * @var array
      */
-    public $slackSettings = [];
+    public $slackSettings = [
+        'httpclient' => [
+            'class' => \yii\httpclient\Client::class,
+        ],
+        'class' => \understeam\slack\Client::class,
+        'username' => 'yii2-slack-mailer',
+    ];
+
+    public $webhook;
 
     public $transport;
 
@@ -28,6 +36,7 @@ class SlackMailer extends BaseMailer
      */
     protected function sendMessage($message)
     {
+        $this->slackSettings['url'] = $this->webhook;
         $slack = Yii::createObject($this->slackSettings);
         $slack->init();
 
