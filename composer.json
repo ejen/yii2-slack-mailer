@@ -1,0 +1,23 @@
+{
+  "name": "ejen/yii2-slack-mailer",
+  "description": "",
+  "type": "yii2-extension",
+  "keywords": [
+    "yii2",
+    "slack",
+    "mailer"
+  ],
+  "license": "MIT",
+  "authors": [
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "yiisoft/yii2": "~2.0.0",
+    "understeam/yii2-slack": "^0.3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ejen\\yii2_slack_mailer\\": ""
+    }
+  }
+}

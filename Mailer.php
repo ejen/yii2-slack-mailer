@@ -2,6 +2,8 @@
 
 namespace ejen\yii2_slack_mailer;
 
+use yii\base\InvalidConfigException;
+use yii\db\Exception;
 use yii\mail\BaseMailer;
 use Yii;
 
@@ -11,51 +13,14 @@ use Yii;
  */
 class Mailer extends BaseMailer
 {
+    /**
+     * @var array
+     */
+    public $slackSettings = [];
+
     public $transport;
 
     public $messageClass = Message::class;
-
-    /**
-     * @param null|string $view
-     * @param array $params
-     * @return \yii\mail\MessageInterface
-     */
-    public function compose($view = null, array $params = [])
-    {
-        $message = $this->createMessage();
-
-        if (is_array($view)) {
-            if (isset($view['html'])) {
-                $html = $this->render($view['html'], $params, $this->htmlLayout);
-            }
-            if (isset($view['text'])) {
-                $text = $this->render($view['text'], $params, $this->textLayout);
-            }
-        } else {
-            $html = $this->render($view, $params, $this->htmlLayout);
-        }
-
-        if (isset($html)) {
-            $message->setHtmlBody($html);
-        }
-        if (isset($text)) {
-            $message->setTextBody($text);
-        } elseif (isset($html)) {
-            if (preg_match('~<body[^>]*>(.*?)</body>~is', $html, $match)) {
-                $html = $match[1];
-            }
-            // remove style and script
-            $html = preg_replace('~<((style|script))[^>]*>(.*?)</\1>~is', '', $html);
-            // strip all HTML tags and decoded HTML entities
-            $text = html_entity_decode(strip_tags($html), ENT_QUOTES | ENT_HTML5, Yii::$app ? Yii::$app->charset : 'UTF-8');
-            // improve whitespace
-            $text = preg_replace("~^[ \t]+~m", '', trim($text));
-            $text = preg_replace('~\R\R+~mu', "\n\n", $text);
-            $message->setTextBody($text);
-        }
-
-        return $message;
-    }
 
     /**
      * @param \yii\mail\MessageInterface $message
@@ -63,12 +28,32 @@ class Mailer extends BaseMailer
      */
     protected function sendMessage($message)
     {
-        $result = Yii::$app->slack->send('Вам письмо!', ':thumbs_up:', [
-            [
-                'text' => $message->textBody,
-                'pretext' => $message->from,
-            ],
-        ]);
+        $slack = Yii::createObject($this->slackSettings);
+        $slack->init();
+
+        if (is_array($message->from)) {
+            if (count($message->from) === 1) {
+                foreach ($message->from as $key => $value) {
+                    $from = "$value <$key>";
+                }
+            } else {
+                throw new InvalidConfigException('Можно указать только одного отправителя');
+            }
+        }
+
+        if (is_string($message->from)) {
+            $from = $message->from;
+        }
+
+        foreach ((array)$message->to as $key => $value) {
+            $to = "$value <$key>";
+            $result = $slack->send($message->subject, null, [
+                [
+                    'text' => $message->textBody,
+                    'pretext' => '*От кого:* ' . $from . PHP_EOL . '*Кому:* ' . $to,
+                ],
+            ]);
+        }
 
         return $result ? true : false;
     }
