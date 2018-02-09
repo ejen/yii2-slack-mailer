@@ -1,6 +1,12 @@
 Данный компонент позволяет отправлять письма в slack-чат, вместо стандартного поведения swiftmailer,
 который отправляет их в папку runtime.
 
+Установка
+=========
+
+```
+conmposer require "ejen/yii2-slack-mailer"
+```
 
 Использование
 ==============
@@ -14,7 +20,7 @@
                     'class' => \yii\httpclient\Client::class,
                 ],
                 'class' => \understeam\slack\Client::class,
-                'url' => 'https://hooks.slack.com/services/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',
+                'url' => '***',
                 'username' => 'yii2-slack-mailer',
             ],
             // send all mails to a file by default. You have to set
