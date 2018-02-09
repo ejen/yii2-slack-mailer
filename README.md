@@ -14,7 +14,7 @@ conmposer require "ejen/yii2-slack-mailer"
 ```
     'components' => [
         'mailer' => [
-            'class' => ejen\yii2_slack_mailer\Mailer::class,
+            'class' => ejen\slack\mailer\SlackMailer::class,
             'slackSettings' => [
                 'httpclient' => [
                     'class' => \yii\httpclient\Client::class,

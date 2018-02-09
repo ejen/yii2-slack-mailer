@@ -1,14 +1,14 @@
 <?php
 
-namespace ejen\yii2_slack_mailer;
+namespace ejen\slack\mailer;
 
 use yii\mail\BaseMessage;
 
 /**
- * Class Message
- * @package ejen\yii2_slack_mailer
+ * Class SlackMessage
+ * @package ejen\slack\mailer
  */
-class Message extends BaseMessage
+class SlackMessage extends BaseMessage
 {
     /**
      * @inheritdoc

@@ -1,6 +1,6 @@
 <?php
 
-namespace ejen\yii2_slack_mailer;
+namespace ejen\slack\mailer;
 
 use yii\base\InvalidConfigException;
 use yii\db\Exception;
@@ -8,10 +8,10 @@ use yii\mail\BaseMailer;
 use Yii;
 
 /**
- * Class Mailer
- * @package ejen\yii2_slack_mailer
+ * Class SlackMailer
+ * @package ejen\slack\mailer
  */
-class Mailer extends BaseMailer
+class SlackMailer extends BaseMailer
 {
     /**
      * @var array
@@ -20,7 +20,7 @@ class Mailer extends BaseMailer
 
     public $transport;
 
-    public $messageClass = Message::class;
+    public $messageClass = SlackMessage::class;
 
     /**
      * @param \yii\mail\MessageInterface $message

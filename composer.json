@@ -17,7 +17,7 @@
   },
   "autoload": {
     "psr-4": {
-      "ejen\\yii2_slack_mailer\\": ""
+      "ejen\\slack\\mailer\\": ""
     }
   }
 }
