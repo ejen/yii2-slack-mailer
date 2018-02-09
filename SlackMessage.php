@@ -196,6 +196,6 @@ class SlackMessage extends BaseMessage
      */
     public function toString()
     {
-        return parent::toString();
+        return;
     }
 }
