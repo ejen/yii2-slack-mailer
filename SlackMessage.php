@@ -10,19 +10,23 @@ use yii\mail\BaseMessage;
  */
 class SlackMessage extends BaseMessage
 {
-    private $_charset = null;
+    private $_charset;
 
-    private $_from = null;
+    private $_from;
 
-    private $_to = null;
+    private $_to;
 
-    private $_replyTo = null;
+    private $_replyTo;
 
-    private $_cc = null;
+    private $_cc;
 
-    private $_bcc = null;
+    private $_bcc;
 
-    private $_subject = null;
+    private $_subject;
+
+    private $_textBody;
+
+    private $_htmlBody;
 
     public $sendAsText = false;
 
@@ -150,10 +154,9 @@ class SlackMessage extends BaseMessage
      */
     public function setTextBody($text)
     {
-        $this->textBody = $text;
+        $this->_textBody = $text;
 
         return $this;
-
     }
 
     /**
@@ -161,7 +164,7 @@ class SlackMessage extends BaseMessage
      */
     public function setHtmlBody($html)
     {
-        $this->htmlBody = $html;
+        $this->_htmlBody = $html;
         return $this;
     }
 
@@ -199,9 +202,9 @@ class SlackMessage extends BaseMessage
     public function toString()
     {
         if ($this->sendAsText) {
-            return $this->textBody;
+            return $this->_textBody;
         }
 
-        return $this->htmlBody;
+        return $this->_htmlBody;
     }
 }
