@@ -58,7 +58,7 @@ class SlackMailer extends BaseMailer
             $to = "$value <$key>";
             $result = $slack->send($message->subject, null, [
                 [
-                    'text' => $message->textBody,
+                    'text' => $message->toString(),
                     'pretext' => '*От кого:* ' . $from . PHP_EOL . '*Кому:* ' . $to,
                 ],
             ]);
