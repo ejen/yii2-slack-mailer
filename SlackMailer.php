@@ -54,17 +54,23 @@ class SlackMailer extends BaseMailer
             $from = $message->from;
         }
 
+        $to = '';
         foreach ((array)$message->to as $key => $value) {
-            $to = "$value <$key>";
-            $result = $slack->send($message->subject, null, [
+            $delimiter = $key ? ',' : '';
+            $to .= $delimiter . "$value <$key>";
+        }
+
+        try {
+            $slack->send($message->subject, null, [
                 [
                     'text' => $message->toString(),
                     'pretext' => '*От кого:* ' . $from . PHP_EOL . '*Кому:* ' . $to,
                 ],
             ]);
+            return true;
+        } catch (\Exception $e) {
+            return false;
         }
-
-        return $result ? true : false;
     }
 
     /**
@@ -83,7 +89,11 @@ class SlackMailer extends BaseMailer
         }
         Yii::info('Sending email "' . $message->getSubject() . '" to "' . $address . '"', __METHOD__);
 
-        $isSuccessful = $this->sendMessage($message);
+        try {
+            $isSuccessful = $this->sendMessage($message);
+        } catch (\Exception $e) {
+            return false;
+        }
 
         $this->afterSend($message, $isSuccessful);
 
