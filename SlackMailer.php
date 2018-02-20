@@ -56,9 +56,9 @@ class SlackMailer extends BaseMailer
 
         $to = '';
         foreach ((array)$message->to as $key => $value) {
-            $delimiter = $key ? ',' : '';
-            $to .= $delimiter . "$value <$key>";
+            $to .= "$value <$key>" . ', ';
         }
+        $to = rtrim($to, ', ');
 
         try {
             $slack->send($message->subject, null, [
